@@ -7,30 +7,43 @@ import org.apache.log4j.Logger;
 import org.cloudfoundry.demo.browser.model.Person;
 import org.cloudfoundry.demo.browser.svc.PeopleClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 @RestController
-@Profile("no-hystrix")
-public class PeopleController {
+@Profile("hystrix")
+@EnableCircuitBreaker
+public class PeopleControllerHystrix {
+
 		
 	@Autowired
-    private PeopleClient peopleClient;
+	private PeopleClient peopleClient;
+		
+	private Logger logger = Logger.getLogger(PeopleControllerHystrix.class);
 	
-	private Logger logger = Logger.getLogger(PeopleController.class);
-	
-	public PeopleController() {
-		logger.info("HYSTRIX DISABLED");
+	public PeopleControllerHystrix() {
+		logger.info("HYSTRIX ENABLED");
 	}
-	
+		
+	@HystrixCommand(fallbackMethod = "getAllPeopleFallback")
 	@RequestMapping(value = "/people", method = RequestMethod.GET)
 	public List<Person> getAllPeople() {
-	    PagedResources<Person> resources = peopleClient.getPeople();
-	    logger.info("Fetched: " + resources);
+		logger.info("fetching...");
+		PagedResources<Person> resources = peopleClient.getPeople();
+		logger.info("Fetched: " + resources);
 		return new ArrayList<Person>(resources.getContent());
 	}
+	
+	public List<Person> getAllPeopleFallback() {
+		logger.info("Fallback to empty array");
+		return new ArrayList<Person>();
+	}
 
+	
 }

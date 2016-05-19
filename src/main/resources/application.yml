@@ -11,6 +11,8 @@ spring:
   sleuth: 
     sampler: 
       percentage: 1.0
+  profiles:
+    active: no-hystrix
       
 eureka:
   client:

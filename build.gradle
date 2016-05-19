@@ -35,6 +35,7 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-databind")
     compile("org.springframework.cloud:spring-cloud-starter-eureka")
     compile("org.springframework.cloud:spring-cloud-starter-feign")
+    compile("org.springframework.cloud:spring-cloud-starter-hystrix")
 	testCompile('org.springframework.boot:spring-boot-starter-test') 
 }
 
