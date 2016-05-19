@@ -1,0 +1,26 @@
+--- 
+org: 
+  cloudfoundry: 
+    demo: 
+      browser: 
+        zipkin: 
+          enabled: false
+spring: 
+  application: 
+    name: browser
+  sleuth: 
+    sampler: 
+      percentage: 1.0
+      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+
+---
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
