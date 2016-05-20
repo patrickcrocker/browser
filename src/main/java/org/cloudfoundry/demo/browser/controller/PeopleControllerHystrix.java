@@ -45,5 +45,4 @@ public class PeopleControllerHystrix {
 		return new ArrayList<Person>();
 	}
 
-	
 }
