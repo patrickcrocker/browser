@@ -13,16 +13,6 @@ spring:
       percentage: 1.0
   profiles:
     active: no-hystrix
-      
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
-
----
-spring:
-  profiles: cloud
-eureka:
-  instance:
-    hostname: ${vcap.application.uris[0]}
-    nonSecurePort: 80
+security:
+  basic:
+    enabled: false
