@@ -35,6 +35,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
 	compile('org.springframework.data:spring-data-rest-hal-browser')
 	compile('io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry')
+	compile("io.pivotal.spring.cloud:spring-cloud-services-starter-circuit-breaker")
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("com.fasterxml.jackson.core:jackson-databind")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
